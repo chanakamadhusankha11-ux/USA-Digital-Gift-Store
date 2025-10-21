@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USA Digital Gift Card Store</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+        
+        .for-you-btn {
+            background-color: #ff6b35;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .for-you-btn:hover {
+            background-color: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title h2 {
+            font-size: 2.2rem;
+            color: #1a2a6c;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Filters */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            height: 160px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #1a2a6c;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a2a6c;
+        }
+        
+        .product-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+        
+        .product-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .buy-btn {
+            display: block;
+            width: 100%;
+            background-color: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .buy-btn:hover {
+            background-color: #15215a;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a2a6c;
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .trust-badges {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .badge {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal h2 {
+            color: #1a2a6c;
+            margin-bottom: 1rem;
+        }
+        
+        .modal p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .modal-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .primary-btn {
+            background-color: #ff6b35;
+            color: white;
+        }
+        
+        .secondary-btn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .primary-btn:hover {
+            background-color: #e55a2b;
+        }
+        
+        .secondary-btn:hover {
+            background-color: #d0d0d0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">🎁</span>
+                <h1>USA Digital Gift Card Store</h1>
+            </div>
+            <button class="for-you-btn" id="forYouBtn">For You</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="page-title">
+            <h2>Digital Gift Cards & Exclusive Offers</h2>
+            <p>Instant delivery to your email - US customers only</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filter-group">
+                <label for="category">Category</label>
+                <select id="category">
+                    <option value="all">All Categories</option>
+                    <option value="retail">Retail</option>
+                    <option value="food">Food & Dining</option>
+                    <option value="cash">Cash & Deposits</option>
+                    <option value="tech">Technology</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="price">Price Range</label>
+                <select id="price">
+                    <option value="all">All Prices</option>
+                    <option value="0-100">$0 - $100</option>
+                    <option value="100-500">$100 - $500</option>
+                    <option value="500-1000">$500 - $1000</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="delivery">Delivery</label>
+                <select id="delivery">
+                    <option value="all">All Delivery Options</option>
+                    <option value="instant">Instant Delivery</option>
+                    <option value="email">Email Delivery</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We provide instant digital gift cards and exclusive offers to customers in the United States.</p>
+                <div class="trust-badges">
+                    <div class="badge">Secure Payments</div>
+                    <div class="badge">Instant Delivery</div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">All Offers</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 USA Digital Gift Card Store. All rights reserved. Available to US customers only.</p>
+            <p>We check country using IP and browser language to ensure compliance and proper delivery of digital gift cards.</p>
+        </div>
+    </footer>
+
+    <!-- Non-US Modal -->
+    <div class="modal" id="nonUSModal">
+        <div class="modal-content">
+            <h2>Access Restricted</h2>
+            <p>This site is available to users located in the United States only.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn primary-btn" id="modalForYouBtn">For You</button>
+                <button class="modal-btn secondary-btn" id="learnMoreBtn">Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                title: "Costco",
+                value: "$750",
+                description: "Get $750 to spend at Costco warehouses nationwide",
+                category: "retail",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "🛒",
+                link: "https://www.af9m8trk.com/QYA11FF4/NB9123XG/?s1=ertert&s2=sfgdrg&s3=eredg&s4=drg"
+            },
+            {
+                id: 2,
+                title: "McDonald's",
+                value: "$100",
+                description: "$100 McDonald's gift card for all your favorite meals",
+                category: "food",
+                priceRange: "100-500",
+                delivery: "instant",
+                icon: "🍔",
+                link: "https://www.af9m8trk.com/QYA11FF4/UPW123XH/?s1=uitit&s2=rturt6ut&s3=iutyiuty&s4=tj"
+            },
+            {
+                id: 3,
+                title: "Target",
+                value: "$750",
+                description: "$750 Target gift card for shopping everything you need",
+                category: "retail",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "🎯",
+                link: "https://www.af9m8trk.com/QYA11FF4/HMG123XJ/?s1=rgyrt&s2=ry&s3=yrurtfu&s4=eyr"
+            },
+            {
+                id: 4,
+                title: "Cash Deposit",
+                value: "$1000",
+                description: "Get $1000 cash deposited directly to your account",
+                category: "cash",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "💰",
+                link: "https://www.af9m8trk.com/QYA11FF4/4K1123XK/?s1=dhrfdth&s2=rturf&s3=dydy&s4=oyj"
+            },
+            {
+                id: 5,
+                title: "Zelle",
+                value: "$750",
+                description: "$750 sent via Zelle for quick peer-to-peer payments",
+                category: "cash",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "💸",
+                link: "https://www.af9m8trk.com/QYA11FF4/8LP123XC/?s1=fgr&s2=uoluio&s3=tyuti&s4=fgjghk"
+            },
+            {
+                id: 6,
+                title: "eBike",
+                value: "$1,000",
+                description: "$1,000 value eBike for eco-friendly transportation",
+                category: "tech",
+                priceRange: "500-1000",
+                delivery: "email",
+                icon: "🚲",
+                link: "https://www.af9m8trk.com/QYA11FF4/VFF124N1/?s1=iouui&s2=urtu&s3=uiouio&s4=rtyrty"
+            },
+            {
+                id: 7,
+                title: "Unclaimed Money",
+                value: "Varies",
+                description: "Check for unclaimed money that might belong to you",
+                category: "cash",
+                priceRange: "0-100",
+                delivery: "instant",
+                icon: "🔍",
+                link: "https://www.af9m8trk.com/QYA11FF4/UXF123DZ/?s1=tyutyu&s2=cvbas&s3=eryt6u&s4=tyy"
+            },
+            {
+                id: 8,
+                title: "Walmart",
+                value: "$1,000",
+                description: "$1,000 Walmart gift card for everyday low prices",
+                category: "retail",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "🛍️",
+                link: "https://www.af9m8trk.com/QYA11FF4/T6M12294/?s1=frgh&s2=iopio&s3=drttk&s4=ipiop"
+            },
+            {
+                id: 9,
+                title: "CashApp",
+                value: "$750",
+                description: "$750 sent via CashApp for easy mobile payments",
+                category: "cash",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "💳",
+                link: "https://www.af9m8trk.com/QYA11FF4/B3A126D5/?s1=gh&s2=iui&s3=utyui&s4=rtyru"
+            },
+            {
+                id: 10,
+                title: "Amazon/Shein",
+                value: "$750",
+                description: "$750 to split between Amazon and Shein shopping",
+                category: "retail",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "📦",
+                link: "https://www.af9m8trk.com/QYA11FF4/4UZ126CZ/?s1=fjtg&s2=uju&s3=rturtu&s4=tuuu"
+            },
+            {
+                id: 11,
+                title: "Unclaimed Money",
+                value: "Varies",
+                description: "Search for additional unclaimed funds in your name",
+                category: "cash",
+                priceRange: "0-100",
+                delivery: "instant",
+                icon: "💵",
+                link: "https://www.af9m8trk.com/QYA11FF4/G2T12D35/?s1=ti&s2=tu&s3=uieyrrtiu&s4=fujfrtu"
+            },
+            {
+                id: 12,
+                title: "Product Reviewer Bonus",
+                value: "$750",
+                description: "$750 Amazon bonus for product reviewers",
+                category: "tech",
+                priceRange: "500-1000",
+                delivery: "email",
+                icon: "⭐",
+                link: "https://www.af9m8trk.com/QYA11FF4/MGH12BVQ/?s1=uioiyuitr&s2=yrtrut&s3=etyestr&s4=ujgyiu"
+            },
+            {
+                id: 13,
+                title: "iPhone 15 Pro Max",
+                value: "$750 Bonus",
+                description: "iPhone 15 Pro Max with $750 bonus value",
+                category: "tech",
+                priceRange: "500-1000",
+                delivery: "email",
+                icon: "📱",
+                link: "https://www.af9m8trk.com/QYA11FF4/JFD12BVR/?s1=dgtjtg&s2=rtuety&s3=ruiti&s4=rtu"
+            },
+            {
+                id: 14,
+                title: "Cash + Share Bonus",
+                value: "$750 + $250",
+                description: "$750 cash plus $250 share bonus for referrals",
+                category: "cash",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "🎊",
+                link: "https://www.af9m8trk.com/QYA11FF4/J1W12BY5/?s1=gtkit&s2=hyfthf&s3=jhfjugyjrtf&s4=t57u76i9"
+            },
+            {
+                id: 15,
+                title: "Shein Shopping",
+                value: "£750",
+                description: "£750 Shein shopping credit for fashion finds",
+                category: "retail",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "👗",
+                link: "https://www.af9m8trk.com/QYA11FF4/16F12BVJ/?s1=yuj&s2=dyrty&s3=cfhfgj&s4=rytt"
+            },
+            {
+                id: 16,
+                title: "Sephora Shopping",
+                value: "$750",
+                description: "$750 Sephora gift card for beauty products",
+                category: "retail",
+                priceRange: "500-1000",
+                delivery: "instant",
+                icon: "💄",
+                link: "https://www.af9m8trk.com/QYA11FF4/KH912BY4/?s1=dh&s2=ghdt&s3=cvnb&s4=dyhtrfu"
+            }
+        ];
+
+        // DOM elements
+        const productsGrid = document.getElementById('productsGrid');
+        const forYouBtn = document.getElementById('forYouBtn');
+        const modalForYouBtn = document.getElementById('modalForYouBtn');
+        const learnMoreBtn = document.getElementById('learnMoreBtn');
+        const nonUSModal = document.getElementById('nonUSModal');
+        const categoryFilter = document.getElementById('category');
+        const priceFilter = document.getElementById('price');
+        const deliveryFilter = document.getElementById('delivery');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is in the US (simulated for demo)
+            // In a real implementation, this would use IP geolocation
+            const isUSUser = checkIfUSUser();
+            
+            if (!isUSUser) {
+                // Show the modal for non-US users
+                nonUSModal.style.display = 'flex';
+            }
+            
+            // Render products
+            renderProducts(products);
+            
+            // Set up event listeners
+            setupEventListeners();
+        });
+
+        // Function to check if user is in the US (simulated)
+        function checkIfUSUser() {
+            // In a real implementation, this would check:
+            // 1. IP geolocation (server-side or via API)
+            // 2. Browser language (navigator.language)
+            
+            // For demo purposes, we'll assume 90% of visitors are US users
+            // In production, you would implement actual geolocation
+            return Math.random() > 0.1; // 90% chance of being US user for demo
+        }
+
+        // Function to render products
+        function renderProducts(productsToRender) {
+            productsGrid.innerHTML = '';
+            
+            productsToRender.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <span>${product.icon}</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.title}</h3>
+                        <div class="product-value">${product.value}</div>
+                        <p class="product-description">${product.description}</p>
+                        <button class="buy-btn" data-link="${product.link}">Get This Offer</button>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+            
+            // Add event listeners to buy buttons
+            document.querySelectorAll('.buy-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const link = this.getAttribute('data-link');
+                    // Redirect to the offer link in the same tab
+                    window.location.href = link;
+                });
+            });
+        }
+
+        // Function to set up event listeners
+        function setupEventListeners() {
+            // For You button in header
+            forYouBtn.addEventListener('click', function() {
+                // In a real implementation, this would check if user is US or not
+                // For demo, we'll assume it's a US user and show a message
+                alert('Personalized offers coming soon!');
+            });
+            
+            // For You button in modal (for non-US users)
+            modalForYouBtn.addEventListener('click', function() {
+                // Redirect to Google in the same tab
+                window.location.href = 'https://www.google.com';
+            });
+            
+            // Learn More button in modal
+            learnMoreBtn.addEventListener('click', function() {
+                // Close the modal and scroll to footer
+                nonUSModal.style.display = 'none';
+                document.querySelector('footer').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Filter event listeners
+            categoryFilter.addEventListener('change', filterProducts);
+            priceFilter.addEventListener('change', filterProducts);
+            deliveryFilter.addEventListener('change', filterProducts);
+        }
+
+        // Function to filter products
+        function filterProducts() {
+            const categoryValue = categoryFilter.value;
+            const priceValue = priceFilter.value;
+            const deliveryValue = deliveryFilter.value;
+            
+            const filteredProducts = products.filter(product => {
+                // Check category filter
+                if (categoryValue !== 'all' && product.category !== categoryValue) {
+                    return false;
+                }
+                
+                // Check price filter
+                if (priceValue !== 'all' && product.priceRange !== priceValue) {
+                    return false;
+                }
+                
+                // Check delivery filter
+                if (deliveryValue !== 'all' && product.delivery !== deliveryValue) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            renderProducts(filteredProducts);
+        }
+    </script>
+</body>
+</html>
